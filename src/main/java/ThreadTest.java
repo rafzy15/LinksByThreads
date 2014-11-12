@@ -20,21 +20,28 @@ import java.util.Date;
 public class ThreadTest implements ActionListener {
     JButton jButton;
     JButton jButton1;
+    Elements links ;
 
-   public static void main(String args[]){
-       Elements links = new Elements();
-       ThreadTest threadTest = new ThreadTest();
-       threadTest.createComponents();
+    public static void main(String args[]){
 
-   }
+        ThreadTest threadTest = new ThreadTest();
+        threadTest.createComponents();
 
-    public static void linksGet(){
-        try{
-            for(int i=0;i<50;i++) {
-                Document doc = Jsoup.connect("http://allegro.pl").get();
+    }
+
+    public void linksGet() {
+        links = new Elements();
+        try {
+//            for(int i=0;i<50;i++) {
+            Document doc = Jsoup.connect("http://allegro.pl/listing/listing.php?bmatch=seng-v0-e-1021&limit=180&order=m&string=samsung").get();
+            links = doc.select("a[href*=html]");
+            for (Element link : links) {
+
+                System.out.println(link.attr("href"));
             }
+//
 
-        }catch(IOException e){
+        } catch (IOException e) {
 
             e.printStackTrace();
         }
